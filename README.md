@@ -3,7 +3,7 @@ This app helps users to submit first principles jobs automatically. It can inter
 
 ### How to install?
 1. The app is built with Dify, please install Dify in your computer first. [Click here for how to install Dify](https://docs.dify.ai/plugin-dev-en/0111-getting-started-dify-plugin)
-2. Install Dify plugin **Te_Auto_1**, check README in directory for detail instructions.
+2. Install Dify plugin **Te_Auto_1**, read [README](tools/README.md) in directory ***tools*** for detail instructions.
 3. Import _Auto Submission Bot.yml_ file to your Dify space.
    ![This picture shows how to import a DSL(.yml) file into the Dify studio.](./import.PNG)
 
