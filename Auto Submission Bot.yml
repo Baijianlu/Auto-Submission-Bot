@@ -1,0 +1,1855 @@
+app:
+  description: 'This app helps users to submit first principles jobs automatically.
+    It can interact with users and allow to set input parameters of ab-initio calculations. '
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: Auto Submission Bot
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.6@dd589dc093c8084925858034ab5ec1fdf0d33819f43226c2f8c4a749a9acbbb2
+kind: app
+version: 0.3.1
+workflow:
+  conversation_variables:
+  - description: The original INCAR settings from atomate.
+    id: 0da37971-362a-455a-9505-787cc74937f1
+    name: incar_orig
+    selector:
+    - conversation
+    - incar_orig
+    value: 'null'
+    value_type: string
+  - description: The modified INCAR input by user.
+    id: 9257dcf5-335c-44c0-b1ed-bcfdd6d377f1
+    name: incar_new
+    selector:
+    - conversation
+    - incar_new
+    value: 'null'
+    value_type: string
+  - description: The user's name.
+    id: 3adac74a-9930-43ce-bfb1-162bd9b48e03
+    name: name
+    selector:
+    - conversation
+    - name
+    value: ''
+    value_type: string
+  - description: 'Determine is this the first round of conversation. '
+    id: 65d42fc2-5973-4004-af75-56fd214f5bf8
+    name: is_first_message
+    selector:
+    - conversation
+    - is_first_message
+    value: 1
+    value_type: integer
+  - description: This records the returned job message from the tool node.
+    id: 2aa0a107-4726-42f6-8e48-af9476f99541
+    name: submitlog
+    selector:
+    - conversation
+    - submitlog
+    value: ''
+    value_type: string
+  - description: Users' choice of modifying the input paramaters, either Yes or No.
+    id: 6badc4da-9280-4615-b42a-849c7b2f9a1a
+    name: choice
+    selector:
+    - conversation
+    - choice
+    value: ''
+    value_type: string
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: This bot will help you submit first-principles jobs. First,
+      please upload structural file, select the calculation you want to do. Then,
+      please input your name in the dialogue region.
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: code
+      id: 1756728751579-source-1756730050749-target
+      selected: false
+      source: '1756728751579'
+      sourceHandle: source
+      target: '1756730050749'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1756782210032-true-1756798166538-target
+      selected: false
+      source: '1756782210032'
+      sourceHandle: 'true'
+      target: '1756798166538'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: template-transform
+      id: 1756782210032-false-1756802521606-target
+      selected: false
+      source: '1756782210032'
+      sourceHandle: 'false'
+      target: '1756802521606'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: answer
+      id: 1756802521606-source-1756802555418-target
+      selected: false
+      source: '1756802521606'
+      sourceHandle: source
+      target: '1756802555418'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: assigner
+      id: 1756798166538-source-1756804832838-target
+      selected: false
+      source: '1756798166538'
+      sourceHandle: source
+      target: '1756804832838'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1756805588442-true-answer-target
+      selected: false
+      source: '1756805588442'
+      sourceHandle: 'true'
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1756623448349-source-1756806098456-target
+      source: '1756623448349'
+      sourceHandle: source
+      target: '1756806098456'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: parameter-extractor
+      id: 1756806098456-true-1756806158669-target
+      selected: false
+      source: '1756806098456'
+      sourceHandle: 'true'
+      target: '1756806158669'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: parameter-extractor
+        targetType: assigner
+      id: 1756806158669-source-1756806352527-target
+      selected: false
+      source: '1756806158669'
+      sourceHandle: source
+      target: '1756806352527'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: assigner
+      id: 1756806352527-source-1756806526250-target
+      selected: false
+      source: '1756806352527'
+      sourceHandle: source
+      target: '1756806526250'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: code
+      id: 1756806526250-source-1756806580546-target
+      source: '1756806526250'
+      sourceHandle: source
+      target: '1756806580546'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: assigner
+      id: 1756806580546-source-1756806662547-target
+      source: '1756806580546'
+      sourceHandle: source
+      target: '1756806662547'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: tool
+      id: 1756806662547-source-1756728751579-target
+      source: '1756806662547'
+      sourceHandle: source
+      target: '1756728751579'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1756806098456-false-1756782210032-target
+      source: '1756806098456'
+      sourceHandle: 'false'
+      target: '1756782210032'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: assigner
+      id: 17568794143920-source-1756882003076-target
+      source: '17568794143920'
+      sourceHandle: source
+      target: '1756882003076'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: llm
+      id: 1756804832838-source-1756882562760-target
+      source: '1756804832838'
+      sourceHandle: source
+      target: '1756882562760'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: llm
+      id: 1756882003076-source-17568834250780-target
+      source: '1756882003076'
+      sourceHandle: source
+      target: '17568834250780'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 1756882562760-source-1756883464265-target
+      source: '1756882562760'
+      sourceHandle: source
+      target: '1756883464265'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: llm
+        targetType: variable-aggregator
+      id: 17568834250780-source-1756883464265-target
+      source: '17568834250780'
+      sourceHandle: source
+      target: '1756883464265'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: variable-aggregator
+        targetType: if-else
+      id: 1756883464265-source-1756805588442-target
+      source: '1756883464265'
+      sourceHandle: source
+      target: '1756805588442'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1756805588442-9978a599-45d9-467f-8777-04248d873f86-answer-target
+      source: '1756805588442'
+      sourceHandle: 9978a599-45d9-467f-8777-04248d873f86
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1756782210032-821e946e-2519-4be9-9f57-f6f87f76f405-17568794143920-target
+      source: '1756782210032'
+      sourceHandle: 821e946e-2519-4be9-9f57-f6f87f76f405
+      target: '17568794143920'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: assigner
+      id: 1756730050749-source-1756885775187-target
+      source: '1756730050749'
+      sourceHandle: source
+      target: '1756885775187'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: if-else
+      id: 1756885775187-source-1756782210032-target
+      source: '1756885775187'
+      sourceHandle: source
+      target: '1756782210032'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: tool
+      id: 1756805588442-false-1757834460599-target
+      source: '1756805588442'
+      sourceHandle: 'false'
+      target: '1757834460599'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: template-transform
+        targetType: answer
+      id: 1757834603864-source-1756805646745-target
+      source: '1757834603864'
+      sourceHandle: source
+      target: '1756805646745'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: assigner
+      id: 1757834460599-source-1757834844440-target
+      source: '1757834460599'
+      sourceHandle: source
+      target: '1757834844440'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: template-transform
+      id: 1757834844440-source-1757834603864-target
+      source: '1757834844440'
+      sourceHandle: source
+      target: '1757834603864'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: Start
+        type: start
+        variables:
+        - allowed_file_extensions:
+          - .cif
+          - .poscar
+          allowed_file_types:
+          - custom
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          label: structure
+          max_length: 48
+          options: []
+          required: true
+          type: file
+          variable: structure
+        - label: task
+          max_length: 48
+          options:
+          - structure relaxation
+          - static calculation
+          - band structure
+          - boltztrap
+          - HSE band structure
+          - COHP calculation
+          - effective mass
+          required: true
+          type: select
+          variable: task
+      height: 115
+      id: '1756623448349'
+      position:
+        x: -25.398814880696477
+        y: 282
+      positionAbsolute:
+        x: -25.398814880696477
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1756883464265.output#}}'
+        desc: ''
+        selected: false
+        title: Answer
+        type: answer
+        variables: []
+      height: 104
+      id: answer
+      position:
+        x: 4722.4898945748155
+        y: 441.60127549508843
+      positionAbsolute:
+        x: 4722.4898945748155
+        y: 441.60127549508843
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema:
+          properties:
+            result:
+              type: string
+          type: object
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: This is the structure submitted for calculation.
+            ja_JP: This is the structure submitted for calculation.
+            pt_BR: This is the structure submitted for calculation.
+            zh_Hans: This is the structure submitted for calculation.
+          label:
+            en_US: structure file
+            ja_JP: structure file
+            pt_BR: structure file
+            zh_Hans: structure file
+          llm_description: This is the structure submitted for calculation.
+          max: null
+          min: null
+          name: structure
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: file
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: This is the task going to be run.
+            ja_JP: This is the task going to be run.
+            pt_BR: This is the task going to be run.
+            zh_Hans: This is the task going to be run.
+          label:
+            en_US: task name
+            ja_JP: task name
+            pt_BR: task name
+            zh_Hans: task name
+          llm_description: ''
+          max: null
+          min: null
+          name: task
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: This is usually the user's name.
+            ja_JP: This is usually the user's name.
+            pt_BR: This is usually the user's name.
+            zh_Hans: This is usually the user's name.
+          label:
+            en_US: user name
+            ja_JP: user name
+            pt_BR: user name
+            zh_Hans: user name
+          llm_description: ''
+          max: null
+          min: null
+          name: name
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        params:
+          name: ''
+          structure: ''
+          task: ''
+        provider_id: 8085bc40-3d39-4344-b2d6-b43eb28f142f/te_auto_1/te_auto_1
+        provider_name: 8085bc40-3d39-4344-b2d6-b43eb28f142f/te_auto_1/te_auto_1
+        provider_type: builtin
+        selected: false
+        title: Check Input
+        tool_configurations: {}
+        tool_description: This tool can be used to output the default INCAR setting
+          of the workflow.
+        tool_label: Check Input
+        tool_name: check_input
+        tool_node_version: '2'
+        tool_parameters:
+          name:
+            type: mixed
+            value: '{{#conversation.name#}}'
+          structure:
+            type: variable
+            value:
+            - '1756623448349'
+            - structure
+          task:
+            type: mixed
+            value: '{{#1756623448349.task#}}'
+        type: tool
+      height: 53
+      id: '1756728751579'
+      position:
+        x: 676.9363384074134
+        y: 1211.9070102015792
+      positionAbsolute:
+        x: 676.9363384074134
+        y: 1211.9070102015792
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "import json\ndef main(arg1: list) -> dict:\n    incar = arg1[0] if\
+          \ arg1 else {}\n    json_str = json.dumps(incar, ensure_ascii=False, indent=2)\n\
+          \    return {\n        \"result\": json_str,\n    }\n"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: Code 1
+        type: code
+        variables:
+        - value_selector:
+          - '1756728751579'
+          - json
+          value_type: array[object]
+          variable: arg1
+      height: 53
+      id: '1756730050749'
+      position:
+        x: 672.9518019785145
+        y: 1335.3077268058012
+      positionAbsolute:
+        x: 672.9518019785145
+        y: 1335.3077268058012
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: 7a8ecceb-6ee8-4c2f-ab15-8befd7889b7c
+            value: 'null'
+            varType: string
+            variable_selector:
+            - conversation
+            - choice
+          id: 'true'
+          logical_operator: or
+        - case_id: 821e946e-2519-4be9-9f57-f6f87f76f405
+          conditions:
+          - comparison_operator: contains
+            id: 14b487e7-25db-44cc-84f5-0187a6bf36b6
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - conversation
+            - choice
+          - comparison_operator: contains
+            id: d662983d-459d-491a-bb10-027484882b5c
+            value: 'null'
+            varType: string
+            variable_selector:
+            - conversation
+            - incar_new
+          id: 821e946e-2519-4be9-9f57-f6f87f76f405
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: IF/ELSE
+        type: if-else
+      height: 199
+      id: '1756782210032'
+      position:
+        x: 1855.149016675914
+        y: 362
+      positionAbsolute:
+        x: 1855.149016675914
+        y: 362
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+            '
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: a35ff86c-4635-42a6-a935-7437ed6dfcb4
+          role: system
+          text: '<instructions>
+
+            1. Extract the choice (yes or no) by the user from the chat logs.
+
+            2. If the user mentions their choice in multiple chat logs, extract the
+            choice from the most recent log.
+
+            3. If the chat logs do not contain the user''s choice, output null.
+
+            4. Ensure the output does not contain any XML tags.
+
+
+            Notes:
+
+            - Make sure the extracted choice is explicitly mentioned by the user.
+
+            - If the user does not input choice, or input anything irrelevant, output
+            null.
+
+            </instructions>
+
+
+            <examples>
+
+            <example>
+
+            <chat>
+
+            user: fan tao.
+
+            assistant: Do you want to change the settings?[Yes/No]
+
+            user: yes.
+
+            </chat>
+
+            <output>
+
+            yes
+
+            </output>
+
+            </example>
+
+
+            <example>
+
+            <chat>
+
+            user: peng xue.
+
+            assistant: Do you want to change the settings?[Yes/No]
+
+            user: no.
+
+            </chat>
+
+            <output>
+
+            no
+
+            </output>
+
+            </example>
+
+
+            <example>
+
+            <chat>
+
+            user: zhang san.
+
+            assistant: Do you want to change the settings?[Yes/No]
+
+            user: Today is Sunday.
+
+            </chat>
+
+            <output>
+
+            null
+
+            </output>
+
+            </example>
+
+            </examples>'
+        selected: false
+        title: Extract User's Choice
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: '1756798166538'
+      position:
+        x: 2622.4705292376316
+        y: 441.60127549508843
+      positionAbsolute:
+        x: 2622.4705292376316
+        y: 441.60127549508843
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        selected: false
+        template: '{{ submitlog }}'
+        title: Template
+        type: template-transform
+        variables:
+        - value_selector:
+          - conversation
+          - submitlog
+          value_type: string
+          variable: submitlog
+      height: 53
+      id: '1756802521606'
+      position:
+        x: 2622.4705292376316
+        y: 282
+      positionAbsolute:
+        x: 2622.4705292376316
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1756802521606.output#}}'
+        desc: ''
+        selected: false
+        title: Answer 2
+        type: answer
+        variables: []
+      height: 104
+      id: '1756802555418'
+      position:
+        x: 3074.4705292376316
+        y: 282
+      positionAbsolute:
+        x: 3074.4705292376316
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1756798166538'
+          - text
+          variable_selector:
+          - conversation
+          - choice
+          write_mode: over-write
+        selected: false
+        title: Assign Choice 2
+        type: assigner
+        version: '2'
+      height: 87
+      id: '1756804832838'
+      position:
+        x: 3074.4705292376316
+        y: 441.60127549508843
+      positionAbsolute:
+        x: 3074.4705292376316
+        y: 441.60127549508843
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: b4e0f037-3136-4c99-93f4-65172d775de8
+            value: 'null'
+            varType: string
+            variable_selector:
+            - conversation
+            - choice
+          id: 'true'
+          logical_operator: or
+        - case_id: 9978a599-45d9-467f-8777-04248d873f86
+          conditions:
+          - comparison_operator: contains
+            id: d82135fb-20ad-44aa-929c-db2e59103389
+            value: 'yes'
+            varType: string
+            variable_selector:
+            - conversation
+            - choice
+          - comparison_operator: contains
+            id: 0707dcbe-aab4-410a-bc36-9e4be735df21
+            value: 'null'
+            varType: string
+            variable_selector:
+            - conversation
+            - incar_new
+          id: 9978a599-45d9-467f-8777-04248d873f86
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: IF/ELSE 2
+        type: if-else
+      height: 199
+      id: '1756805588442'
+      position:
+        x: 4309.785035591647
+        y: 515.346314910211
+      positionAbsolute:
+        x: 4309.785035591647
+        y: 515.346314910211
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1757834603864.output#}}'
+        desc: ''
+        selected: false
+        title: Answer 3
+        type: answer
+        variables: []
+      height: 104
+      id: '1756805646745'
+      position:
+        x: 5804.161899308473
+        y: 732.5164330957604
+      positionAbsolute:
+        x: 5804.161899308473
+        y: 732.5164330957604
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: '='
+            id: 742c1619-9254-41fe-af4d-7599610bbd16
+            value: '1'
+            varType: number
+            variable_selector:
+            - conversation
+            - is_first_message
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: IF/ELSE 3
+        type: if-else
+      height: 125
+      id: '1756806098456'
+      position:
+        x: 388.77738316766295
+        y: 282
+      positionAbsolute:
+        x: 388.77738316766295
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        instruction: save the first line of user's input as parameter 'name'
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        parameters:
+        - description: The user's name
+          name: name
+          required: false
+          type: string
+        query:
+        - sys
+        - query
+        reasoning_mode: prompt
+        selected: false
+        title: Extract User's Name
+        type: parameter-extractor
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: '1756806158669'
+      position:
+        x: 672.9518019785145
+        y: 469.7437599968659
+      positionAbsolute:
+        x: 672.9518019785145
+        y: 469.7437599968659
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1756806158669'
+          - name
+          variable_selector:
+          - conversation
+          - name
+          write_mode: over-write
+        selected: false
+        title: Assign Name
+        type: assigner
+        version: '2'
+      height: 87
+      id: '1756806352527'
+      position:
+        x: 676.9363384074134
+        y: 639.0865582250648
+      positionAbsolute:
+        x: 676.9363384074134
+        y: 639.0865582250648
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: constant
+          operation: set
+          value: 'null'
+          variable_selector:
+          - conversation
+          - choice
+          write_mode: over-write
+        selected: false
+        title: Assign Choice
+        type: assigner
+        version: '2'
+      height: 87
+      id: '1756806526250'
+      position:
+        x: 676.9363384074134
+        y: 782.5298696654215
+      positionAbsolute:
+        x: 676.9363384074134
+        y: 782.5298696654215
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "\ndef main():\n    data = 0\n    return {\n        \"result\": data,\n\
+          \    }\n"
+        code_language: python3
+        desc: ''
+        outputs:
+          result:
+            children: null
+            type: number
+        selected: false
+        title: Code 0
+        type: code
+        variables: []
+      height: 53
+      id: '1756806580546'
+      position:
+        x: 678.9286066218627
+        y: 931.9499857491264
+      positionAbsolute:
+        x: 678.9286066218627
+        y: 931.9499857491264
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1756806580546'
+          - result
+          variable_selector:
+          - conversation
+          - is_first_message
+          write_mode: over-write
+        selected: false
+        title: Assign is_first_message
+        type: assigner
+        version: '2'
+      height: 87
+      id: '1756806662547'
+      position:
+        x: 678.9286066218627
+        y: 1051.4860786160905
+      positionAbsolute:
+        x: 678.9286066218627
+        y: 1051.4860786160905
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+            '
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: a35ff86c-4635-42a6-a935-7437ed6dfcb4
+          role: system
+          text: "<instructions>\n1. Read the user's chat records carefully, identifying\
+            \ and extracting the new input settings by the user from the chat logs.\
+            \ The input settings is a python dict type data and locate within '{}'\
+            \ tag. \n2. If the user mentions their input settings in multiple chat\
+            \ logs, extract the choice from the most recent log.\n3. If the chat logs\
+            \ do not contain the user's input settings, output null.\n4. Ensure the\
+            \ output does not contain any XML tags.\n\nNotes:\n- Make sure the extracted\
+            \ input settings is explicitly mentioned by the user.\n- If the user does\
+            \ not input input settings, or input anything irrelevant, output null.\n\
+            </instructions>\n\n<examples>\n<example>\n<chat>\nuser: fan tao.\nassistant:\
+            \ Do you want to change the settings?[Yes/No]\nuser: yes.\nassistant:\
+            \ Please input your new settings, write it like a dict, such as {“structure\
+            \ optimization”:{\"ENCUT\": 600, \"ISTART\": 0},\"static\":{\"ISMEAR\"\
+            :-5, \"LWAVE\": \".FALSE.\"}}.\nuser: {\"structure optimization\": {\"\
+            ENCUT\": 400, \"ISMEAR\": 0, \"ISIF\": 2},\"static\":{\"ENCUT\": 400,\"\
+            LWAVE\": \".FALSE.\"}}\n</chat>\n<output>\n{\"structure optimization\"\
+            : {\"ENCUT\": 400, \"ISMEAR\": 0, \"ISIF\": 2},\"static\":{\"ENCUT\":\
+            \ 400,\"LWAVE\": \".FALSE.\"}}\n</output>\n</example>\n\n<example>\n<chat>\n\
+            user: peng xue.\nassistant: Do you want to change the settings?[Yes/No]\n\
+            user: yes.\nassistant: Please input your new settings, write it like a\
+            \ dict, such as {“structure optimization”:{\"ENCUT\": 600, \"ISTART\"\
+            : 0},\"static\":{\"ISMEAR\":-5, \"LWAVE\": \".FALSE.\"}}.\nuser: {\"structure\
+            \ optimization\": {\"IBRION\": 2, \"ISIF\": 3}}\n</chat>\n<output>\n{\"\
+            structure optimization\": {\"IBRION\": 2, \"ISIF\": 3}}\n</output>\n</example>\n\
+            \n<example>\n<chat>\nuser: zhang san.\nassistant: Do you want to change\
+            \ the settings?[Yes/No]\nuser: yes.\nassistant: Please input your new\
+            \ settings, write it like a dict, such as {“structure optimization”:{\"\
+            ENCUT\": 600, \"ISTART\": 0},\"static\":{\"ISMEAR\":-5, \"LWAVE\": \"\
+            .FALSE.\"}}.\nuser: I don't know what to do.\n</chat>\n<output>\nnull\n\
+            </output>\n</example>\n</examples>"
+        selected: false
+        title: Extract User's Input
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: '17568794143920'
+      position:
+        x: 2622.4705292376316
+        y: 650.2660233039003
+      positionAbsolute:
+        x: 2622.4705292376316
+        y: 650.2660233039003
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '17568794143920'
+          - text
+          variable_selector:
+          - conversation
+          - incar_new
+          write_mode: over-write
+        selected: false
+        title: Assign Incar_new
+        type: assigner
+        version: '2'
+      height: 87
+      id: '1756882003076'
+      position:
+        x: 3074.4705292376316
+        y: 650.2660233039003
+      positionAbsolute:
+        x: 3074.4705292376316
+        y: 650.2660233039003
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: b6e88cb7-c518-4a34-ad5e-f8657b0f02d2
+          role: system
+          text: "<instructions>\n1. Receive the variables choice and incar_new as\
+            \ input.\n2. Check if any of the variables are null.\n3. If choice is\
+            \ null, prompt the user to input a choice.\n4. If choice is yes and incar_new\
+            \ is null, prompt the user to provide new input settings.\n5. If choice\
+            \ is no, output a confirmation message indicating that all necessary information\
+            \ has been provided.\n6. If choice is yes and incar_new is not null, output\
+            \ a confirmation message indicating that all necessary information has\
+            \ been provided.\n7. The output should not contain any XML tags.\n</instructions>\n\
+            \n<examples>\n<example>\n<input>\nchoice: null\nincar_new: null\n</input>\n\
+            <output>\n{{#conversation.incar_orig#}}\nDo you want to change the settings?[Yes/No]\n\
+            </output>\n</example>\n\n<example>\n<input>\nchoice: yes\nincar_new: null\n\
+            </input>\n<output>\nPlease input your new settings, write it like a dict,\
+            \ such as {“structure optimization”:{\"ENCUT\": 600, \"ISTART\": 0},\"\
+            static\":{\"ISMEAR\":-5, \"LWAVE\": \".FALSE.\"}}.\n</output>\n</example>\n\
+            \n<example>\n<input>\nchoice: no\nincar_new: null\n</input>\n<output>\n\
+            All necessary information has been provided.\n</output>\n</example>\n\n\
+            <example>\n<input>\nchoice: yes\nincar_new: {\"static\":{\"ENCUT\": 400,\
+            \ \"ISMEAR\": 0, \"LWAVE\": \".TRUE.\"}}\n</input>\n<output>\nAll necessary\
+            \ information has been provided. \n</output>\n</example>\n</examples>"
+        - id: 4853f366-75e7-4cf9-b330-5109ea764f5c
+          role: user
+          text: 'User Information：
+
+            |choice|{{#conversation.choice#}}|
+
+            |incar_new|{{#conversation.incar_new#}}|'
+        selected: false
+        title: Chat (choice branch)
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: '1756882562760'
+      position:
+        x: 3508.6245467168606
+        y: 441.60127549508843
+      positionAbsolute:
+        x: 3508.6245467168606
+        y: 441.60127549508843
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-chat
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: b6e88cb7-c518-4a34-ad5e-f8657b0f02d2
+          role: system
+          text: "<instructions>\n1. Receive the variables choice and incar_new as\
+            \ input.\n2. Check if any of the variables are null.\n3. If choice is\
+            \ null, prompt the user to input a choice.\n4. If choice is yes and incar_new\
+            \ is null, prompt the user to provide new input settings.\n5. If choice\
+            \ is no, output a confirmation message indicating that all necessary information\
+            \ has been provided.\n6. If choice is yes and incar_new is not null, output\
+            \ a confirmation message indicating that all necessary information has\
+            \ been provided.\n7. The output should not contain any XML tags.\n</instructions>\n\
+            \n<examples>\n<example>\n<input>\nchoice: null\nincar_new: null\n</input>\n\
+            <output>\n{{#conversation.incar_orig#}}\nDo you want to change the settings?[Yes/No]\n\
+            </output>\n</example>\n\n<example>\n<input>\nchoice: yes\nincar_new: null\n\
+            </input>\n<output>\nPlease input your new settings, write it like a dict,\
+            \ such as {“structure optimization”:{\"ENCUT\": 600, \"ISTART\": 0},\"\
+            static\":{\"ISMEAR\":-5, \"LWAVE\": \".FALSE.\"}}.\n</output>\n</example>\n\
+            \n<example>\n<input>\nchoice: no\nincar_new: null\n</input>\n<output>\n\
+            All necessary information has been provided.\n</output>\n</example>\n\n\
+            <example>\n<input>\nchoice: yes\nincar_new: {\"static\":{\"ENCUT\": 400,\
+            \ \"ISMEAR\": 0, \"LWAVE\": \".TRUE.\"}}\n</input>\n<output>\nAll necessary\
+            \ information has been provided. \n</output>\n</example>\n</examples>"
+        - id: 4853f366-75e7-4cf9-b330-5109ea764f5c
+          role: user
+          text: 'User Information：
+
+            |choice|{{#conversation.choice#}}|
+
+            |incar_new|{{#conversation.incar_new#}}|'
+        selected: false
+        title: Chat (incar_new branch) (1)
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: '17568834250780'
+      position:
+        x: 3508.6245467168606
+        y: 650.2660233039003
+      positionAbsolute:
+        x: 3508.6245467168606
+        y: 650.2660233039003
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        output_type: string
+        selected: false
+        title: Variable Aggregator
+        type: variable-aggregator
+        variables:
+        - - '1756882562760'
+          - text
+        - - '17568834250780'
+          - text
+      height: 130
+      id: '1756883464265'
+      position:
+        x: 3915.4553216691847
+        y: 515.346314910211
+      positionAbsolute:
+        x: 3915.4553216691847
+        y: 515.346314910211
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1756730050749'
+          - result
+          variable_selector:
+          - conversation
+          - incar_orig
+          write_mode: over-write
+        selected: false
+        title: Assign Incar_orig
+        type: assigner
+        version: '2'
+      height: 87
+      id: '1756885775187'
+      position:
+        x: 1002.0158277871258
+        y: 1335.3077268058012
+      positionAbsolute:
+        x: 1002.0158277871258
+        y: 1335.3077268058012
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema:
+          properties:
+            result:
+              type: string
+          type: object
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: This is the structure submitted for calculation.
+            ja_JP: This is the structure submitted for calculation.
+            pt_BR: This is the structure submitted for calculation.
+            zh_Hans: This is the structure submitted for calculation.
+          label:
+            en_US: structure file
+            ja_JP: structure file
+            pt_BR: structure file
+            zh_Hans: structure file
+          llm_description: This is the structure submitted for calculation.
+          max: null
+          min: null
+          name: structure
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: file
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: This is the task going to be run.
+            ja_JP: This is the task going to be run.
+            pt_BR: This is the task going to be run.
+            zh_Hans: This is the task going to be run.
+          label:
+            en_US: task name
+            ja_JP: task name
+            pt_BR: task name
+            zh_Hans: task name
+          llm_description: ''
+          max: null
+          min: null
+          name: task
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: This is usually the user's name.
+            ja_JP: This is usually the user's name.
+            pt_BR: This is usually the user's name.
+            zh_Hans: This is usually the user's name.
+          label:
+            en_US: user name
+            ja_JP: user name
+            pt_BR: user name
+            zh_Hans: user name
+          llm_description: ''
+          max: null
+          min: null
+          name: name
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: This is the INCAR settings input by user.
+            ja_JP: This is the INCAR settings input by user.
+            pt_BR: This is the INCAR settings input by user.
+            zh_Hans: This is the INCAR settings input by user.
+          label:
+            en_US: input INCARs
+            ja_JP: input INCARs
+            pt_BR: input INCARs
+            zh_Hans: input INCARs
+          llm_description: ''
+          max: null
+          min: null
+          name: incar_new
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        params:
+          incar_new: ''
+          name: ''
+          structure: ''
+          task: ''
+        provider_id: 8085bc40-3d39-4344-b2d6-b43eb28f142f/te_auto_1/te_auto_1
+        provider_name: 8085bc40-3d39-4344-b2d6-b43eb28f142f/te_auto_1/te_auto_1
+        provider_type: builtin
+        selected: false
+        title: Submit Job
+        tool_configurations: {}
+        tool_description: This tool can be used to submit first-principles calculation
+          automatically.
+        tool_label: Submit Job
+        tool_name: submit_job
+        tool_node_version: '2'
+        tool_parameters:
+          incar_new:
+            type: mixed
+            value: '{{#conversation.incar_new#}}'
+          name:
+            type: mixed
+            value: '{{#conversation.name#}}'
+          structure:
+            type: variable
+            value:
+            - '1756623448349'
+            - structure
+          task:
+            type: mixed
+            value: '{{#1756623448349.task#}}'
+        type: tool
+      height: 53
+      id: '1757834460599'
+      position:
+        x: 4722.4898945748155
+        y: 732.5164330957604
+      positionAbsolute:
+        x: 4722.4898945748155
+        y: 732.5164330957604
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        selected: false
+        template: "### The type of task is: {{ task }}\r\n\r\n### The job has been\
+          \ submitted to cluster TEgroup successfully, the returned message is:\r\n\
+          \r\n#### {{ submitlog }}\r\n\r\n### you can access to the results in the\
+          \ following way:\r\n\r\n#### 1. Connect to the cluster using Shell tools\
+          \ such as Mobaxterm, Xshell, etc.\r\n\r\n    host: 172.26.54.23\r\n\r\n\
+          \    username: customer\r\n\r\n    password: siccas\r\n\r\n    port: 22\r\
+          \n\r\n#### 2. Open the directory:\r\n\r\n    ~/work/{{ name }}\r\n\r\n####\
+          \ 3. The results will be in the directory named as workflow index shown\
+          \ in the returned message."
+        title: Template 2
+        type: template-transform
+        variables:
+        - value_selector:
+          - '1756623448349'
+          - task
+          variable: task
+        - value_selector:
+          - conversation
+          - submitlog
+          variable: submitlog
+        - value_selector:
+          - conversation
+          - name
+          variable: name
+      height: 53
+      id: '1757834603864'
+      position:
+        x: 5448.37964837327
+        y: 732.5164330957604
+      positionAbsolute:
+        x: 5448.37964837327
+        y: 732.5164330957604
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1757834460599'
+          - text
+          variable_selector:
+          - conversation
+          - submitlog
+          write_mode: over-write
+        selected: false
+        title: Assign Submitlog
+        type: assigner
+        version: '2'
+      height: 87
+      id: '1757834844440'
+      position:
+        x: 5107.136633854736
+        y: 732.5164330957604
+      positionAbsolute:
+        x: 5107.136633854736
+        y: 732.5164330957604
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        author: fantao
+        desc: ''
+        height: 153
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"font-size:
+          16px;","text":"When chatting, first upload the structural file (support
+          .cif and .poscar), select the task type in the list and enter your name
+          in the dialogue box. Then, follow the instruction of the app.","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textStyle":"font-size:
+          16px;","textFormat":0}],"direction":"ltr","format":"","indent":0,"type":"root","version":1,"textStyle":"font-size:
+          16px;"}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 245
+      height: 153
+      id: '1757850823536'
+      position:
+        x: -22.156068722455952
+        y: 432.5249791276078
+      positionAbsolute:
+        x: -22.156068722455952
+        y: 432.5249791276078
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 245
+    - data:
+        author: fantao
+        desc: ''
+        height: 139
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"font-size:
+          16px;","text":"If it is the first round of conversation, record the user''s
+          name and the default INCAR settings from atomate.","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textStyle":"font-size:
+          16px;","textFormat":0}],"direction":"ltr","format":"","indent":0,"type":"root","version":1,"textStyle":"font-size:
+          16px;"}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 261
+      height: 139
+      id: '1757851298571'
+      position:
+        x: 377.4162285342535
+        y: 126.92320265051882
+      positionAbsolute:
+        x: 377.4162285342535
+        y: 126.92320265051882
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 261
+    - data:
+        author: fantao
+        desc: ''
+        height: 120
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"font-size:
+          16px;","text":"Subsequent rounds of conversation will skip this step.","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textStyle":"font-size:
+          16px;","textFormat":0}],"direction":"ltr","format":"","indent":0,"type":"root","version":1,"textStyle":"font-size:
+          16px;"}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 248
+      height: 120
+      id: '1757851450795'
+      position:
+        x: 924.6652942484917
+        y: 206.46386256523363
+      positionAbsolute:
+        x: 924.6652942484917
+        y: 206.46386256523363
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 248
+    - data:
+        author: fantao
+        desc: ''
+        height: 121
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"font-size:
+          16px;","text":"Extract the default INCAR settings of the selected task.","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textStyle":"font-size:
+          16px;","textFormat":0}],"direction":"ltr","format":"","indent":0,"type":"root","version":1,"textStyle":"font-size:
+          16px;"}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 243
+      height: 121
+      id: '1757851527119'
+      position:
+        x: 387.59252976004876
+        y: 1193.8514834324478
+      positionAbsolute:
+        x: 387.59252976004876
+        y: 1193.8514834324478
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 243
+    - data:
+        author: fantao
+        desc: ''
+        height: 140
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"font-size:
+          16px;","text":"Use if/else branches to determine if further information
+          need to be asked from the user.","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textStyle":"font-size:
+          16px;","textFormat":0}],"direction":"ltr","format":"","indent":0,"type":"root","version":1,"textStyle":"font-size:
+          16px;"}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 268
+      height: 140
+      id: '1757851625371'
+      position:
+        x: 1842.853155075849
+        y: 198.4104643009543
+      positionAbsolute:
+        x: 1842.853155075849
+        y: 198.4104643009543
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 268
+    - data:
+        author: fantao
+        desc: ''
+        height: 170
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"font-size:
+          16px;","text":"If the user hasn''t decided whether to modify the INCAR or
+          not, or if the user selected to modify but hasn''t input the new INCAR yet,
+          continue asking/chatting.","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textStyle":"font-size:
+          16px;","textFormat":0}],"direction":"ltr","format":"","indent":0,"type":"root","version":1,"textStyle":"font-size:
+          16px;"}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 288
+      height: 170
+      id: '1757851883871'
+      position:
+        x: 4310.97735761236
+        y: 303.087971583724
+      positionAbsolute:
+        x: 4310.97735761236
+        y: 303.087971583724
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 288
+    - data:
+        author: fantao
+        desc: ''
+        height: 88
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"font-size:
+          16px;","text":"Oganize the workflow and submit to the control database.","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textStyle":"font-size:
+          16px;","textFormat":0}],"direction":"ltr","format":"","indent":0,"type":"root","version":1,"textStyle":"font-size:
+          16px;"}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 240
+      height: 88
+      id: '1757852423934'
+      position:
+        x: 4725.062095813086
+        y: 824.4709523738436
+      positionAbsolute:
+        x: 4725.062095813086
+        y: 824.4709523738436
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    viewport:
+      x: 25.726137758578602
+      y: -1.7010468066058593
+      zoom: 0.3670990965701663
